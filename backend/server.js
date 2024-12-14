@@ -1,6 +1,8 @@
 // server.js
 const express = require("express");
 const { checkDatabaseConnection } = require("./config/database");
+const packageRoutes = require("./routes/packageRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
 const port = 3000;
@@ -10,6 +12,10 @@ app.use(express.json());
 
 // Check database connection
 checkDatabaseConnection();
+
+// Routes
+app.use("/api/packages", packageRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 // Default route to confirm server is running
 app.get("/", (req, res) => {

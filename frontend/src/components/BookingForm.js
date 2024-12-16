@@ -34,8 +34,12 @@ const BookingForm = ({ pkg, onClose }) => {
     e.preventDefault();
     try {
       await axios.post('https://travel-agency-cll7.onrender.com/api/bookings', {
-        packageId: pkg.id,
-        ...formData,
+        package_id: pkg.id, // Adjusted to match backend field name
+        customer_name: formData.name, // Adjusted field name
+        email: formData.email,
+        phone: formData.phone,
+        number_of_travelers: formData.travelers, // Adjusted field name
+        special_requests: formData.specialRequests,
       });
       alert('Booking Successful! Generating invoice...');
       generateInvoice(formData);
@@ -43,7 +47,7 @@ const BookingForm = ({ pkg, onClose }) => {
     } catch (error) {
       console.error('Error booking package:', error);
     }
-  };
+  };  
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

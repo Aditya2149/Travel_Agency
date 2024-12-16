@@ -9,7 +9,16 @@ const cors = require('cors');
 const app = express();
 
 // Enable CORS for all origins
-app.use(cors());
+app.use(cors({ origin: '*' })); // Allow all origins
+
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
+
+app.get('/api/packages', (req, res) => {
+    res.json({ message: 'Packages fetched successfully' });
+});
 
 // Middleware for parsing JSON requests
 app.use(express.json());

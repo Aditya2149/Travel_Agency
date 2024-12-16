@@ -37,8 +37,16 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('adminToken');
-      const datesArray = formData.available_dates.split(',').map(date => date.trim()); // Convert string to array
-      const packageData = { ...formData, available_dates: datesArray };  // Include the formatted dates
+      let datesArray = formData.available_dates;
+  
+      // Check if available_dates is an array or a string
+      if (typeof datesArray === 'string') {
+        // Convert string to array if it's a comma-separated string
+        datesArray = datesArray.split(',').map(date => date.trim());
+      }
+  
+      // Ensure available_dates is an array before sending to the API
+      const packageData = { ...formData, available_dates: datesArray };
   
       if (editingPackage) {
         // Update Package
@@ -85,15 +93,16 @@ const AdminDashboard = () => {
 
   // Populate form for editing
   const handleEdit = (pkg) => {
-    setFormData({
-      title: pkg.title,
-      description: pkg.description,
-      price: pkg.price,
-      available_dates: pkg.available_dates,
-      image_url: pkg.image_url,
-    });
-    setEditingPackage(pkg);
-  };
+  setFormData({
+    title: pkg.title,
+    description: pkg.description,
+    price: pkg.price,
+    available_dates: pkg.available_dates.join(', '),  // Join array as a comma-separated string
+    image_url: pkg.image_url,
+  });
+  setEditingPackage(pkg);
+};
+
 
   return (
     <div className="p-8">

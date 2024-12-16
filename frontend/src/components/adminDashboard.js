@@ -36,13 +36,24 @@ const AdminDashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('adminToken');
+      console.log("Token in localStorage:", token);
+
       if (editingPackage) {
         // Update Package
-        await axios.put(`https://travel-agency-cll7.onrender.com/admin/packages/${editingPackage.id}`, formData);
+        await axios.put(`https://travel-agency-cll7.onrender.com/admin/packages/${editingPackage.id}`, formData, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         alert('Package updated successfully!');
       } else {
         // Add Package
-        await axios.post('https://travel-agency-cll7.onrender.com/admin/packages', formData);
+        await axios.post('https://travel-agency-cll7.onrender.com/admin/packages', formData, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         alert('Package added successfully!');
       }
       fetchPackages(); // Refresh the package list
@@ -52,12 +63,16 @@ const AdminDashboard = () => {
       console.error('Error submitting package:', error.message);
     }
   };
-
-  // Handle Delete Package
+  
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this package?')) {
       try {
-        await axios.delete(`https://travel-agency-cll7.onrender.com/admin/packages/${id}`);
+        const token = localStorage.getItem('adminToken');
+        await axios.delete(`https://travel-agency-cll7.onrender.com/admin/packages/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
         alert('Package deleted successfully!');
         fetchPackages();
       } catch (error) {
@@ -65,6 +80,7 @@ const AdminDashboard = () => {
       }
     }
   };
+
 
   // Populate form for editing
   const handleEdit = (pkg) => {

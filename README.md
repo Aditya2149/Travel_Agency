@@ -96,10 +96,10 @@ Travel_Agency/
 ├── frontend/           # React frontend
 │   ├── src/
 │   │   ├── components/
-│   │   ├── pages/
 │   │   └── services/
 │
 ├── backend/            # Node.js backend
+|   ├── config/
 │   ├── models/
 │   ├── routes/
 │   ├── controllers/

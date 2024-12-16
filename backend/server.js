@@ -6,7 +6,6 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
-const port = 3000;
 
 // Middleware for parsing JSON requests
 app.use(express.json());
@@ -25,6 +24,5 @@ app.get("/", (req, res) => {
 });
 
 // Start the server
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

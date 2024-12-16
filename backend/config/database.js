@@ -11,7 +11,8 @@ const pool = new Pool({
   ssl: {
     rejectUnauthorized: false, // For self-signed certificates
     ca: process.env.DB_SSL_CA, // Optional: Provide CA certificate for secure connections
-  }
+  },
+  sslmode: 'require' 
 });
 
 

@@ -4,8 +4,12 @@ const { checkDatabaseConnection } = require("./config/database");
 const packageRoutes = require("./routes/packageRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const adminRoutes = require('./routes/adminRoutes');
+const cors = require('cors');
 
 const app = express();
+
+// Enable CORS for all origins
+app.use(cors());
 
 // Middleware for parsing JSON requests
 app.use(express.json());
